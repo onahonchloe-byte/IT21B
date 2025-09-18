@@ -30,5 +30,12 @@ class Warrior extends Hero{
     }
 }
 
+class Mage extends Hero{
+    constructor(name,health,attack,mana){
+        super(name,health,attack);
+        this.mana = mana;
+    }
+}
+
 hero1.showStats();
 hero2.showStats();
