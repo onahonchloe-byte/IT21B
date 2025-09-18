@@ -35,7 +35,21 @@ class Mage extends Hero{
         super(name,health,attack);
         this.mana = mana;
     }
+
+    useAbility(){
+        console.log('${this.name} cast Fireball');
+    }
+    showStats(){
+        super.showStats();
+        console.log("Mana: "+this.mana);
+    }
+
 }
 
-hero1.showStats();
-hero2.showStats();
+const Thorin = new Warrior("Thorin",100,10);
+const Gandalf = new Mage("Gandalf",100,8,50);
+
+//Thorin.showStats();
+//Thorin.useAbility();
+Gandalf.showStats();
+Gandalf.showStats();
