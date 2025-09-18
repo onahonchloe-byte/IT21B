@@ -23,5 +23,12 @@ console.log(hero1.getHealth());
 console.log(hero2.getName());
 console.log(hero2.getHealth());
 
+class Warrior extends Hero{
+    useAbility(){
+        console.log('${this.name} used Power Strike');
+    
+    }
+}
+
 hero1.showStats();
 hero2.showStats();
