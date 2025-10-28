@@ -1,18 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar Chart</title>
-</head>
-<body>
-    <h1> Radar Chart</h1>
-    <div>
-        <canvas id = "radarChart"> </canvas>
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
+
+    class LineChart {
+        constructor (canvasId, dataUrl) {
+            this.canvasId = canvasId;
+            this.dataUrl = dataUrl;
+            this.chart = null;
+        }
+
+        renderChart(data) {
+            const ctx = document.getElementById(this.canvasId).getContext("2d");
+
+            //
+            this.chart = new Chart (ctx, {
+                type : "line",
+                data : {
+                    labels: data.labels,
+                    dataset:[{
+                        labels: "Monthly Data",
+                        data: data.values,
+                        borderwidth : 1
+                    }]
+                },
+
+
+                option: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            //
+               }
+               async fetchData () {
+                try {
+                    const response = await fetch (this.dataUrl);
+                    if (!response.ok) throw new Error('Failed to load data: ${response.statusText}');
+                    const data = await response.json();
+                    return data;
+
+                }catch {
+                    console.error("Error fetching data", error);
+                    return null;
+
+                }
+            }
+            async init() {
+                const data = await this.fetchData();
+                if (data) {
+                    this.renderChart(data);
+                }
+            }
+        }
+    document.addEventListener("DOMContentLoaded", () => {
+        const chart = new LineChart("linechart", );
+        chart.init();
+    })
+
     class radarChart {
         constructor(canvasId, dataUrl) {
             this.canvasId = canvasId;
@@ -71,8 +116,6 @@
         }
     }
     document.addEventListener("DOMContentLoaded", ()=> {
-        const chart = new radarChart("radarChart", "radarchart.json");
+        const chart = new radarChart("radarChart", "radardata.json");
         chart.init();
     })
-</script>
-</html>
